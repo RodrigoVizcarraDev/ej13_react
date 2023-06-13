@@ -5,6 +5,7 @@ import CardClima from "./CardClima";
 
 const Formulario = ({ kelvin_to_celsius }) => {
     const [nombreCiudad, setNombreCiudad] = useState("");
+    const [pais, setPais] = useState("");
     const [nombreCiudadApi, setNombreCiudadApi] = useState("");
     const [latitud, setLatitud] = useState(0);
     const [longitud, setLongitud] = useState(0);
@@ -19,7 +20,7 @@ const Formulario = ({ kelvin_to_celsius }) => {
             const peticionAPI = await fetch(
                 `http://api.openweathermap.org/geo/1.0/direct?q=${
                     nombreCiudad || "Buenos Aires"
-                },arg&limit=1&appid=8088c068d388132744ac36cb925485fe`
+                },${pais}&limit=1&appid=8088c068d388132744ac36cb925485fe`
             );
             const datos = await peticionAPI.json();
             console.log(datos);
@@ -70,6 +71,12 @@ const Formulario = ({ kelvin_to_celsius }) => {
         setNombreCiudad(ciudad);
         console.log("Entramos a value");
     };
+
+    const handleInputChangeCountry = (valor) => {
+        const pais = valor.target.value;
+        setPais(pais);
+        console.log("Ejecuto con exito CHANGE COUNTRY");
+    }
     return (
         <>
             <Form onSubmit={handleSubmit}>
@@ -82,7 +89,20 @@ const Formulario = ({ kelvin_to_celsius }) => {
                         value={nombreCiudad}
                     />
                 </Form.Group>
-
+                <Form.Group className="my-4">
+                    <Form.Label>
+                        Escriba el Pais segun la siguiente pagina
+                    </Form.Label>
+                    <a href="https://www.datosmundial.com/codigos-de-pais.php" target="_blank">
+                        DatosMundial.com
+                    </a>
+                    <Form.Control
+                        type="text"
+                        placeholder="ej: AR para Argentina"
+                        onChange={handleInputChangeCountry}
+                        value={pais}
+                    />
+                </Form.Group>
                 <Button variant="primary" type="submit">
                     Enviar
                 </Button>
