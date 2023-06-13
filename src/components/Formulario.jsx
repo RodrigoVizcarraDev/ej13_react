@@ -12,7 +12,6 @@ const Formulario = ({ kelvin_to_celsius }) => {
     const [temperatura, setTemperatura] = useState(0);
     useEffect(() => {
         consultaAPI();
-        console.log("Ejecute useEffect");
     }, []);
 
     const consultaAPI = async () => {
@@ -39,7 +38,6 @@ const Formulario = ({ kelvin_to_celsius }) => {
                 `https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=8088c068d388132744ac36cb925485fe`
             );
             const datosClima = await peticionAPIclima.json();
-            console.log("CONSULTA API CLIMA");
             let temperatura = datosClima.main.temp;
             temperatura = Math.round(temperatura);
             setTemperatura(kelvin_to_celsius(temperatura));
@@ -64,7 +62,6 @@ const Formulario = ({ kelvin_to_celsius }) => {
     const handleInputChangeCountry = (valor) => {
         const pais = valor.target.value;
         setPais(pais);
-        console.log("Ejecuto con exito CHANGE COUNTRY");
     }
     return (
         <>
